@@ -1,0 +1,15 @@
+C:\Users\V\source\repos\TrainApplication\TrainApplication\bin\Debug\net6.0\TrainApplication.exe
+C:\Users\V\source\repos\TrainApplication\TrainApplication\bin\Debug\net6.0\TrainApplication.deps.json
+C:\Users\V\source\repos\TrainApplication\TrainApplication\bin\Debug\net6.0\TrainApplication.runtimeconfig.json
+C:\Users\V\source\repos\TrainApplication\TrainApplication\bin\Debug\net6.0\TrainApplication.dll
+C:\Users\V\source\repos\TrainApplication\TrainApplication\bin\Debug\net6.0\TrainApplication.pdb
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\TrainApplication.csproj.AssemblyReference.cache
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\TrainApplication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\TrainApplication.AssemblyInfoInputs.cache
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\TrainApplication.AssemblyInfo.cs
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\TrainApplication.csproj.CoreCompileInputs.cache
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\TrainApplication.dll
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\refint\TrainApplication.dll
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\TrainApplication.pdb
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\TrainApplication.genruntimeconfig.cache
+C:\Users\V\source\repos\TrainApplication\TrainApplication\obj\Debug\net6.0\ref\TrainApplication.dll
