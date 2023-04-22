@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 
 namespace TrainApplication
 {
@@ -181,10 +181,11 @@ namespace TrainApplication
             // Arrange
             string destination = "New York";
             TimeSpan departureTime = new TimeSpan(10, 0, 0);
+            string time = "10, 0, 0";
             Train expectedTrain = new Train("New York", departureTime, 100);
 
             // Act
-            Train result = Program.SearchTrain(destination, departureTime);
+            Train result = Program.SearchTrain(destination, time);
 
             // Assert
             Assert.AreEqual(expectedTrain, result);
@@ -196,9 +197,10 @@ namespace TrainApplication
             // Arrange
             string destination = "Los Angeles";
             TimeSpan departureTime = new TimeSpan(11, 0, 0);
+            string time = "11, 0, 0";
 
             // Act
-            Train result = Program.SearchTrain(destination, departureTime);
+            Train result = Program.SearchTrain(destination, time);
 
             // Assert
             Assert.IsNull(result);
