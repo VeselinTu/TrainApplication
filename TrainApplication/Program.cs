@@ -1,9 +1,4 @@
-﻿using TrainApplication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TrainApplication;
 
 class Program
 {
@@ -17,28 +12,87 @@ class Program
 
     static void Main(string[] args)
     {
-        CardType cardType = CardType.none;
-        Console.WriteLine("Enter time: ");
-        string time = Console.ReadLine();
-        Console.WriteLine("Enter card type: ");
-        string type = Console.ReadLine();
-        if (type.Equals("oldPeople"))
-        {
-            cardType = CardType.oldPeople;
-        }
-        else if (type.Equals("family"))
-        {
-            cardType = CardType.family;
-        }
-        Console.WriteLine("Enter number of tickets: ");
-        int numberOftickets = Int32.Parse(Console.ReadLine());
-        Console.WriteLine("Enter destination: ");
-        string destination = Console.ReadLine();
-        Console.WriteLine("Enter true if you have a child: ");
-        bool child = bool.Parse(Console.ReadLine());
+        trains = setupTrains();
+        DisplayMenu();
     }
+public static void DisplayMenu()
+{
+    bool exit = false;
+    CardType cardType = CardType.none;
+    string time;
+    string type;
+    int numberOftickets;
+    string destination;
+    bool child;
 
-    public static Double calculatePrice(String enteredTime, CardType cardType, int numberOfTickets, String destination, bool child)
+    while (!exit)
+    {
+        Console.WriteLine("Please select an option:");
+        Console.WriteLine("1. Calculate ticket price");
+        Console.WriteLine("2. Search trains");
+        Console.WriteLine("3. Calculate ticket price based on trip");
+        Console.WriteLine("4. Reserve train ticket");
+        Console.WriteLine("5. Exit");
+
+        string userInput = Console.ReadLine();
+
+        switch (userInput)
+        {
+            case "1":
+                    Console.Write("Enter time: ");
+                    time = Console.ReadLine();
+                    Console.Write("Enter card type: ");
+                    type = Console.ReadLine();
+                    if (type.Equals("oldPeople"))
+                    {
+                        cardType = CardType.oldPeople;
+                    }
+                    else if (type.Equals("family"))
+                    {
+                        cardType = CardType.family;
+                    }
+                    Console.Write("Enter number of tickets: ");
+                    numberOftickets = Int32.Parse(Console.ReadLine());
+                    Console.Write("Enter destination: ");
+                    destination = Console.ReadLine();
+                    Console.Write("Enter true if you have a child: ");
+                    child = bool.Parse(Console.ReadLine());
+                    Console.WriteLine(calculatePrice(time, cardType, numberOftickets, destination, child));
+                    break;
+            case "2":
+                    Console.Write("Enter destination: ");
+                    destination = Console.ReadLine();
+                    Console.Write("Enter time: ");
+                    time = Console.ReadLine();
+                    SearchTrain(destination, time);
+                break;
+            case "3":
+                    Console.Write("Enter isRoundTrip: ");
+                    bool isRoundTrip = bool.Parse(Console.ReadLine());
+                    Console.WriteLine(calculateTicketPriceBasedOnTrip(isRoundTrip));
+                break;
+            case "4":
+                    Console.Write("Enter time of leaving: ");
+                    time = Console.ReadLine();
+                    Console.Write("Enter number of seats needed: ");
+                    int numberOfSeatsNeeded = Int32.Parse(Console.ReadLine());
+                    ReserveTrainTicket(trains, TimeSpan.Parse(time), numberOfSeatsNeeded);
+                break;
+            case "5":
+                Console.WriteLine("Exiting...");
+                exit = true;
+                break;
+            default:
+                Console.WriteLine("Invalid input. Please try again.");
+                break;
+        }
+
+        Console.WriteLine();
+    }
+}
+
+
+public static Double calculatePrice(String enteredTime, CardType cardType, int numberOfTickets, String destination, bool child)
     {
         DateTime time = DateTime.Parse(enteredTime);
         Double finalPrice = 0;
@@ -79,7 +133,6 @@ class Program
         return finalPrice;
     }
 
-
     public static bool isRushHour(String enteredTime)
     {
         TimeSpan time = TimeSpan.Parse(enteredTime);
@@ -106,19 +159,22 @@ class Program
         return trains;
     }
 
-    public static Train SearchTrain(string destination, TimeSpan departureTime)
+    public static Train SearchTrain(string destination, string time)
     {
+        TimeSpan departureTime = TimeSpan.Parse(time);
         foreach (Train train in trains)
         {
             if (train.destination == destination && train.departureTime == departureTime)
             {
+                Console.WriteLine("There is a train with the desired destination and departure time");
                 return train;
             }
         }
+        Console.WriteLine("No train found with the desired destination and departure time");
         return null;
     }
 
-    public Double CalculateTicketPriceBasedOnTrip(bool isRoundTrip)
+    public static Double calculateTicketPriceBasedOnTrip(bool isRoundTrip)
     {
         Double total = price;
         if (isRoundTrip)
@@ -146,6 +202,7 @@ class Program
                     message = $"Reservation successful for {numOfSeatsNeeded} seat(s) on train to {train.destination} leaving at {train.departureTime}";
                     Console.WriteLine(message);
                     reservationMade = true;
+                    SaveDataToFile(train.destination, train.departureTime, reservationMade);
                     break;
                 }
                 else
@@ -166,4 +223,9 @@ class Program
         return reservationMade;
     }
 
+    public static void SaveDataToFile(string destination, TimeSpan departureTime, bool isReservationMade)
+    {
+        using StreamWriter writer = new("data.txt", true);
+        writer.WriteLine("Destination: " + destination + ", Departure Time: " + departureTime + ", Reserved: " + isReservationMade + ", Reservation was made on: " + DateTime.Now.ToString());
+    }
 }
