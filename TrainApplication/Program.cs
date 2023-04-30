@@ -1,9 +1,11 @@
+using System.Security.Principal;
 using TrainApplication;
 
 class Program
 {
     private static Double price = 100.0;
     private static Train[]? trains = null;
+    private static Dictionary<string,Account> accounts = null;
 
     static TimeSpan sevenThirty = new TimeSpan(7, 30, 00);
     static TimeSpan nineThirty = new TimeSpan(9, 30, 00);
@@ -12,10 +14,49 @@ class Program
 
     static void Main(string[] args)
     {
+        Login();
         trains = setupTrains();
         DisplayMenu();
     }
-public static void DisplayMenu()
+
+    public static void Login()
+    {
+        accounts = PopulateAccounts();
+        string username;
+        string password;
+
+        Account account;
+        bool success = false;
+        while (!success)
+        {
+            Console.Write("Enter username: ");
+            username = Console.ReadLine();
+            Console.Write("Enter password: ");
+            password = Console.ReadLine();
+
+            if (accounts.TryGetValue(username, out account) && account.password == password)
+            {
+                success = true;
+                Console.WriteLine("Login successful.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid username or password.");
+            }
+        }
+    }
+
+    public static Dictionary<string, Account> PopulateAccounts()
+    {
+        Dictionary<string, Account> accounts = new Dictionary<string, Account>();
+
+        accounts.Add("admin", new Account("0", "admin", "12345"));
+        accounts.Add("user", new Account("1", "user", "123"));
+        accounts.Add("veselin", new Account("2", "veselin", "mypass"));
+
+        return accounts;
+    }
+    public static void DisplayMenu()
 {
     bool exit = false;
     CardType cardType = CardType.none;
